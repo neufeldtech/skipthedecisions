@@ -5,6 +5,7 @@
   "main": "server.js",
   "author": "Scotch",
   "dependencies": {
+    "apicache": "0.0.12",
     "cheerio": "latest",
     "express": "latest",
     "node-html-encoder": "0.0.2",

@@ -6,8 +6,10 @@ var app = express();
 //adding these to decode html elements
 var Encoder = require('node-html-encoder').Encoder;
 var encoder = new Encoder('entity');
+var apicache = require('apicache').options({ debug: true }).middleware;
 
-app.get('/scrape', function(req, res){
+
+app.get('/restaurants', apicache('10 minutes'), function(req, res){
 	url = 'https://www.skipthedishes.com/winnipeg/restaurants';
 	request(url, function(error, response, html){
 		if(!error){
@@ -36,6 +38,6 @@ app.get('/scrape', function(req, res){
 	})//end request
 })//end app.get call
 
-app.listen('8081');
-console.log('Magic happens on port 8081');
+app.listen('8080');
+console.log('Magic happens on port 8080');
 exports = module.exports = app;
