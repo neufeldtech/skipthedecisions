@@ -1,3 +1,4 @@
+//importing modules
 var express = require('express');
 var fs = require('fs');
 var request = require('request');
@@ -7,7 +8,9 @@ var app = express();
 var Encoder = require('node-html-encoder').Encoder;
 var encoder = new Encoder('entity');
 var apicache = require('apicache').options({ debug: true }).middleware;
-
+var cors = require('cors')
+//configurations
+app.use(cors());
 
 app.get('/restaurants', apicache('10 minutes'), function(req, res){
 	url = 'https://www.skipthedishes.com/winnipeg/restaurants';
