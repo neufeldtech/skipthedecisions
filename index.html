@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<HTML>
+  <HEAD>
+    <title>Skip The Decisions | The 'Skip The Dishes' randomizer app that lets you eat more and think less!</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </HEAD>
+
+  <BODY ng-app="skipApp" ng-controller="skipController">
+  <div class="container">
+    <div class="jumbotron">
+    <h1><span class="glyphicon glyphicon-cutlery" style="top: 5px;padding-right: 5px;color: #CF0000"></span>Skip The Decisions</h1>
+    <p>
+      Can't decide on a restaurant? Now you don't have to!<br>It's time to <b>Skip The Decisions!</b>
+    </p>
+    <hr>
+    <div class="panel panel-default" style="min-height: 100px">
+    <div class="panel-body">
+        <h2 ng-show="loading" style="text-align:center;"><img src="loader.gif" style="width: 26px;height:26px;">&nbsp;Good food takes time</h2>
+        <div ng-show="success" style="text-align:center; cursor: pointer;" ng-click="openUrl()">
+          <h2>{{randomRestaurant.name}}</h2>
+          <p>
+            {{randomRestaurant.rating}} stars
+          </p>
+        </div>
+    </div>
+    </div>
+    <button ng-click="eat()" type="button" class="btn btn-danger btn-lg" style="width: 100%;">Let's Eat!</button>
+
+    </div>
+    </div>
+  </div>
+  <script>
+  var app = angular.module('skipApp', []);
+  app.controller('skipController', function($scope, $window, $http){
+    $scope.loading = false;
+    $scope.success = false;
+    $scope.eat = function() {
+      $scope.success = false;
+      $scope.loading = true;
+      $http.get("http://192.168.0.108:8080/restaurants")
+        .success(function(response){
+          var restaurants = response.restaurants;
+          $scope.randomRestaurant = response.restaurants[Math.floor(Math.random() * response.restaurants.length)];
+          $scope.loading=false;
+          $scope.success=true;
+        });
+      }
+      $scope.openUrl = function() {
+        $window.open($scope.randomRestaurant.url, $scope.randomRestaurant.name);
+      }
+    });
+
+  </script>
+  </BODY>
+</HTML>

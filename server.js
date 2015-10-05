@@ -12,7 +12,7 @@ var cors = require('cors')
 //configurations
 app.use(cors());
 
-app.get('/restaurants', apicache('10 minutes'), function(req, res){
+app.get('/restaurants', apicache('1 seconds'), function(req, res){
 	url = 'https://www.skipthedishes.com/winnipeg/restaurants';
 	request(url, function(error, response, html){
 		if(!error){
@@ -33,10 +33,13 @@ app.get('/restaurants', apicache('10 minutes'), function(req, res){
 				json.rating = rating;
 				jsonarray.push(json);
 			});
+		} else {
+			res.json({status: 'error'});
 		}//end if error
 		//build final JSON object
 		var restaurantsJson = { restaurants : '' };
 		restaurantsJson.restaurants = jsonarray;
+		console.log(jsonarray.length);
   	res.json(restaurantsJson);
 	})//end request
 })//end app.get call
