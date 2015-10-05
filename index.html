@@ -16,13 +16,24 @@
       Can't decide on a restaurant? Now you don't have to!<br>It's time to <b>Skip The Decisions!</b>
     </p>
     <hr>
-    <div class="panel panel-default" style="min-height: 100px">
+    <div class="panel panel-default" style="text-align: center;min-height: 175px">
     <div class="panel-body">
-        <h2 ng-show="loading" style="text-align:center;"><img src="loader.gif" style="width: 26px;height:26px;">&nbsp;Good food takes time</h2>
-        <div ng-show="success" style="text-align:center; cursor: pointer;" ng-click="openUrl()">
+        <div ng-show="initMessageStatus">
+          <h2 style="padding-top:15px;">{{initMessage}}</h2>
+          <p style="padding-bottom:15px;">
+            Click below to begin!
+          </p>
+        </div>
+        <div ng-show="loading" style="margin-top:55px;margin-bottom:55px;">
+          <h2 ><img src="loader.gif" style="width: 26px;height:26px;">&nbsp;{{loadingMessage}}</h2>
+        </div>
+        <div ng-show="success" style="cursor: pointer;" title="Click to choose me!" ng-click="openUrl()">
           <h2>{{randomRestaurant.name}}</h2>
           <p>
             {{randomRestaurant.rating}} stars
+          </p>
+          <p style="font-size: 0.9em;color: #333">
+            Click to choose this restaurant.
           </p>
         </div>
     </div>
@@ -35,11 +46,17 @@
   <script>
   var app = angular.module('skipApp', []);
   app.controller('skipController', function($scope, $window, $http){
+    var loadingMessages = ['Makin\' Bacon...','Good food takes time...','Any minute now...','Just a sec...','Asking the chef...','Almost there, mmkay?','Keep yer\' pants on...','Patience is a virtue...','Seriously...?','Again...?'];
+    var initMessages = ['Ain\'t nobody got time for that!','Y U so lazy?','Who said choosing can\'t be easy?','It\'s your turn to spin the wheel!','It ain\'t easy bein\' cheesy.','Couches are just napkins you can sit on.'];
+    $scope.initMessage = initMessages[Math.floor(Math.random() * initMessages.length)];
+    $scope.initMessageStatus = true;
     $scope.loading = false;
     $scope.success = false;
     $scope.eat = function() {
+      $scope.initMessageStatus = false;
       $scope.success = false;
       $scope.loading = true;
+      $scope.loadingMessage = loadingMessages[Math.floor(Math.random() * loadingMessages.length)];
       $http.get("http://192.168.0.108:8080/restaurants")
         .success(function(response){
           var restaurants = response.restaurants;
