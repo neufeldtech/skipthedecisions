@@ -9,8 +9,11 @@ var Encoder = require('node-html-encoder').Encoder;
 var encoder = new Encoder('entity');
 var apicache = require('apicache').options({ debug: true }).middleware;
 var cors = require('cors')
+var corsOptions = {
+  origin: 'http://localhost'
+};
 //configurations
-app.use(cors());
+app.use(cors(corsOptions));
 
 app.get('/restaurants', apicache('1 seconds'), function(req, res){
 	url = 'https://www.skipthedishes.com/winnipeg/restaurants';
