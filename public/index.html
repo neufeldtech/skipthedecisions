@@ -38,38 +38,11 @@
         </div>
     </div>
     </div>
-    <button ng-click="eat()" type="button" class="btn btn-danger btn-lg" style="width: 100%;">Let's Eat!</button>
+    <button ng-disabled="loading" ng-click="eat()" type="button" class="btn btn-danger btn-lg" style="width: 100%;">Let's Eat!</button>
 
     </div>
     </div>
   </div>
-  <script>
-  var app = angular.module('skipApp', []);
-  app.controller('skipController', function($scope, $window, $http){
-    var loadingMessages = ['Makin\' Bacon...','Good food takes time...','Any minute now...','Just a sec...','Asking the chef...','Almost there, mmkay?','Keep yer\' pants on...','Patience is a virtue...','Seriously...?','Again...?'];
-    var initMessages = ['Ain\'t nobody got time for that!','Y U so lazy?','Who said choosing can\'t be easy?','It\'s your turn to spin the wheel!','It ain\'t easy bein\' cheesy.','Couches are just napkins you can sit on.'];
-    $scope.initMessage = initMessages[Math.floor(Math.random() * initMessages.length)];
-    $scope.initMessageStatus = true;
-    $scope.loading = false;
-    $scope.success = false;
-    $scope.eat = function() {
-      $scope.initMessageStatus = false;
-      $scope.success = false;
-      $scope.loading = true;
-      $scope.loadingMessage = loadingMessages[Math.floor(Math.random() * loadingMessages.length)];
-      $http.get("http://192.168.0.108:8080/restaurants")
-        .success(function(response){
-          var restaurants = response.restaurants;
-          $scope.randomRestaurant = response.restaurants[Math.floor(Math.random() * response.restaurants.length)];
-          $scope.loading=false;
-          $scope.success=true;
-        });
-      }
-      $scope.openUrl = function() {
-        $window.open($scope.randomRestaurant.url, $scope.randomRestaurant.name);
-      }
-    });
-
-  </script>
+  <script src="client.js"></script>
   </BODY>
 </HTML>

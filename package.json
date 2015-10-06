@@ -9,6 +9,7 @@
     "cheerio": "latest",
     "cors": "^2.7.1",
     "express": "latest",
+    "mongoose": "^4.1.10",
     "node-html-encoder": "0.0.2",
     "request": "latest"
   }

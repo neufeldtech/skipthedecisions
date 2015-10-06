@@ -1,50 +1,34 @@
 //importing modules
 var express = require('express');
-var fs = require('fs');
+//var fs = require('fs');
 var request = require('request');
 var cheerio = require('cheerio');
 var app = express();
-//adding these to decode html elements
-var Encoder = require('node-html-encoder').Encoder;
-var encoder = new Encoder('entity');
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/skipApp');
+var Collection = require('./models/collection');
 var apicache = require('apicache').options({ debug: true }).middleware;
+//configurations
 var cors = require('cors')
 var corsOptions = {
   origin: 'http://localhost'
 };
-//configurations
+
 app.use(cors(corsOptions));
+app.get('/restaurants', apicache('30 seconds'), function(req, res){
+  Collection.find(function(err, restaurants) {
+    res.json(restaurants);
+  }).sort({date: -1}).limit(20);
+});
 
-app.get('/restaurants', apicache('1 seconds'), function(req, res){
-	url = 'https://www.skipthedishes.com/winnipeg/restaurants';
-	request(url, function(error, response, html){
-		if(!error){
-			var $ = cheerio.load(html);
-			var jsonarray = [];
-
-			//$('.restaurant-list').each(function(){ console.log($(this).attr('data-restaurant-name'));});
-			var baseUrl = "https://www.skipthedishes.com"
-			$('.restaurant-list').each(function(){
-				var restaurantName = $(this).find('span.restaurant-name').html();
-				var link = $(this).find('a.show-loading').attr('href');
-				var rating = $(this).attr('data-restaurant-rating');
-				restaurantNamePretty = encoder.htmlDecode(restaurantName.replace(/\&apos;/g, "'"));
-				//build the JSON object then add it to the array
-				var json = {name : '', url : '', rating : ''};
-				json.name = restaurantNamePretty;
-				json.url = baseUrl+link;
-				json.rating = rating;
-				jsonarray.push(json);
-			});
-		} else {
-			res.json({status: 'error'});
-		}//end if error
-		//build final JSON object
-		var restaurantsJson = { restaurants : '' };
-		restaurantsJson.restaurants = jsonarray;
-		console.log(jsonarray.length);
-  	res.json(restaurantsJson);
-	})//end request
+app.get('/restaurants/:city', apicache('30 seconds'), function(req, res){
+  Collection.find({city: req.params.city },function(err, restaurants) {
+    if (!err) {
+      res.json(restaurants[0]);
+    } else {
+      res.json({status: 'ERROR'});
+    }
+  }).sort({date: -1}).limit(1);
 })//end app.get call
 
 app.listen('8080');
