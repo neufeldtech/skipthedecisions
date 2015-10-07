@@ -11,7 +11,7 @@ app.controller('skipController', function($scope, $window, $http){
     $scope.success = false;
     $scope.loading = true;
     $scope.loadingMessage = loadingMessages[Math.floor(Math.random() * loadingMessages.length)];
-    $http.get("http://192.168.0.108:8080/restaurants/winnipeg")
+    $http.get("http://lappy-486:8080/restaurants/winnipeg")
       .success(function(response){
         var restaurants = response.restaurants;
         $scope.randomRestaurant = response.restaurants[Math.floor(Math.random() * response.restaurants.length)];
@@ -25,7 +25,24 @@ app.controller('skipController', function($scope, $window, $http){
         $scope.initMessageStatus = true;
       });
     }
+    $scope.getCities = function() {
+      $http.get("http://localhost:8080/cities")
+      .success(function(response){
+        $scope.cities = response;
+        $scope.selectedCity = $scope.cities[10];
+      })
+      .error(function(response){
+        $scope.loading=false;
+        $scope.success=false;
+        $scope.initMessage="Oops..Something went wrong";
+        $scope.initMessageStatus = true;
+      });
+    }
     $scope.openUrl = function() {
       $window.open($scope.randomRestaurant.url, $scope.randomRestaurant.name);
     }
+    //initializing function for getting cities
+    $scope.getCities();
+
+    // $scope.form = {type: $scope.cities[0]};
   });

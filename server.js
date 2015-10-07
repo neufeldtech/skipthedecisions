@@ -11,14 +11,28 @@ var apicache = require('apicache').options({ debug: true }).middleware;
 //configurations
 var cors = require('cors')
 var corsOptions = {
-  origin: 'http://localhost'
+  origin: '*'
 };
-
 app.use(cors(corsOptions));
+
 app.get('/restaurants', apicache('30 seconds'), function(req, res){
   Collection.find(function(err, restaurants) {
-    res.json(restaurants);
+    if (!err) {
+      res.json(restaurants);
+    } else {
+      res.json({ status: 'ERROR' })
+    }
   }).sort({date: -1}).limit(20);
+});
+
+app.get('/cities', apicache('30 seconds'), function(req, res){
+  Collection.distinct('city', function(err, restaurants) {
+    if (!err) {
+      res.json(restaurants);
+    } else {
+      res.json({ status: "ERROR" });
+    }
+  });
 });
 
 app.get('/restaurants/:city', apicache('30 seconds'), function(req, res){
