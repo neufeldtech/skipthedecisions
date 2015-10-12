@@ -1,0 +1,32 @@
+body {
+  background-color: #000;
+  background-image: url('bg.jpg');
+  background-repeat: no-repeat;
+  background-position:center top;
+}
+.jumbotron {
+  background-color: #dcdcdc;
+}
+.glyphicon-cutlery {
+  top: 5px;
+  padding-right: 5px;
+  color: #cf0000;
+}
+.panel {
+  text-align: center;
+  min-height: 175px;
+}
+.imgloader {
+  width: 26px;
+  height: 26px;
+}
+.panel-success {
+  cursor: pointer;
+  font-size: 0.8em;
+}
+p.panel-msg {
+  color: #cf0000;
+}
+.btn.btn-danger.btn-lg {
+  width: 100%;
+}

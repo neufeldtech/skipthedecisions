@@ -25,6 +25,10 @@ app.get('/restaurants', apicache('30 seconds'), function(req, res){
   }).sort({date: -1}).limit(20);
 });
 
+//serve static files in public directory
+
+app.use(express.static('public'));
+
 app.get('/cities', apicache('30 seconds'), function(req, res){
   Collection.distinct('city', function(err, restaurants) {
     if (!err) {
