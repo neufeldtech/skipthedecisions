@@ -1,4 +1,4 @@
-var serverHostname = "192.168.0.2";
+var serverHostname = "192.168.0.2:8080";
 var app = angular.module('skipApp', []);
 app.controller('skipController', function($scope, $window, $http, $timeout, $q){
   var loadingMessages = ['Did you break something?','Makin\' Bacon...','Good food takes time...','Any minute now...','Just a sec...','Asking the chef...','Almost there, mmkay?','Keep yer\' pants on...','Patience is a virtue...','Seriously...?','Again...?'];
@@ -14,7 +14,7 @@ app.controller('skipController', function($scope, $window, $http, $timeout, $q){
 
     $scope.loadingMessage = loadingMessages[Math.floor(Math.random() * loadingMessages.length)];
 
-    var url = "http://"+serverHostname+":8080/restaurants/" + $scope.selectedCity ;
+    var url = "http://"+serverHostname+"/restaurants/" + $scope.selectedCity ;
     $http.get(url)
       .success(function(response){
         var restaurants = response.restaurants;
@@ -60,7 +60,7 @@ app.controller('skipController', function($scope, $window, $http, $timeout, $q){
       });
     }
     $scope.getCities = function() {
-      $http.get("http://"+serverHostname+":8080/cities")
+      $http.get("http://"+serverHostname+"/cities")
       .success(function(response){
         $scope.cities = response;
         $scope.selectedCity = $scope.cities[9];
