@@ -14,7 +14,7 @@ body {
 }
 .panel {
   text-align: center;
-  min-height: 175px;
+  min-height: 185px;
 }
 .imgloader {
   width: 26px;
@@ -29,4 +29,8 @@ p.panel-msg {
 }
 .btn.btn-danger.btn-lg {
   width: 100%;
+}
+.blurry {
+   color: transparent;
+   text-shadow: 0 0 3px rgba(0,0,0,0.5);
 }

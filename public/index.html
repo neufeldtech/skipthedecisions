@@ -23,26 +23,32 @@
     </p>
     <hr>
     <div class="panel panel-default">
-    <div class="panel-body">
-        <div ng-show="initMessageStatus">
-          <h2>{{initMessage}}</h2>
-          <p class="panel-msg">
-            Click below to begin!
-          </p>
-        </div>
-        <div ng-show="loading">
-          <h2 ><img src="loader.gif" class="imgloader">&nbsp;{{loadingMessage}}</h2>
-        </div>
-        <div ng-show="success" class="panel-success" title="Click to choose me!" ng-click="openUrl()">
-          <h2>{{randomRestaurant.name}}</h2>
-          <p>
-            {{randomRestaurant.rating}} stars
-          </p>
-          <p class="panel-msg">
-            Click to choose this restaurant.
-          </p>
-        </div>
-    </div>
+      <div class="panel-body">
+
+          <div ng-show="messageStatus">
+            <h2>{{message}}</h2>
+            <p class="panel-msg">
+              Click below to begin!
+            </p>
+          </div>
+
+          <div ng-show="loading">
+            <h2 ><img src="loader.gif" class="imgloader">&nbsp;{{loadingMessage}}</h2>
+            <h2 class="blurry">{{randomRestaurant.name}}<h2>
+
+          </div>
+
+          <div ng-show="success" class="panel-success" title="{{randomRestaurant.name}} is a great choice!" ng-click="openUrl()">
+            <h2>{{randomRestaurant.name}}</h2>
+            <p>
+              {{randomRestaurant.rating}} stars
+            </p>
+            <p class="panel-msg">
+              Click to choose this restaurant.
+            </p>
+          </div>
+
+      </div>
     </div>
     <div class="citySelect" style="padding-bottom:10px;">
       <select required="true" ng-options="c as c.toUpperCase() for c in cities" ng-model="selectedCity" class="form-control" required>
