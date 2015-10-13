@@ -26,17 +26,30 @@ app.controller('skipController', function($scope, $window, $http, $timeout, $q){
           t += 15;
           $timeout(function(){
             counter += 1
+
+            $scope.randomRestaurant = response.restaurants[Math.floor(Math.random() * response.restaurants.length)];
+
+            //if we get to the last one, execute this code:
             if (counter == restaurants.length ){
-              console.log(counter);
               $scope.loading=false;
               $scope.success=true;
+              //lets find out our rating:
+              $scope.starsArray = []
+              var roundedDown = Math.floor($scope.randomRestaurant.rating);
+              for (i=0;i < roundedDown;i++){
+                $scope.starsArray.push(i);
+              }
+              //if it was a half star
+              if ($scope.randomRestaurant.rating % 1 != 0) {
+                $scope.halfStar = true;
+              } else {
+                $scope.halfStar = false;
+              }
+
             }
-            $scope.randomRestaurant = response.restaurants[Math.floor(Math.random() * response.restaurants.length)];
+
           }, t);
         });//end foreach
-
-
-        //$scope.loadingStyle = {'color': '#000'};
 
       })
       .error(function(response){

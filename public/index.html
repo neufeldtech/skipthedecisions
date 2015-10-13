@@ -34,14 +34,14 @@
 
           <div ng-show="loading">
             <h2 ><img src="loader.gif" class="imgloader">&nbsp;{{loadingMessage}}</h2>
-            <h2 class="blurry">{{randomRestaurant.name}}<h2>
+            <h3 class="blurry">{{randomRestaurant.name}}<h3>
 
           </div>
 
           <div ng-show="success" class="panel-success" title="{{randomRestaurant.name}} is a great choice!" ng-click="openUrl()">
             <h2>{{randomRestaurant.name}}</h2>
             <p>
-              {{randomRestaurant.rating}} stars
+              <span class="glyphicon glyphicon-star star-color" ng-repeat="s in starsArray"></span><span class="glyphicon glyphicon-star star-color half" ng-show="halfStar"></span>
             </p>
             <p class="panel-msg">
               Click to choose this restaurant.

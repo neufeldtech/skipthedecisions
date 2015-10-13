@@ -32,5 +32,20 @@ p.panel-msg {
 }
 .blurry {
    color: transparent;
-   text-shadow: 0 0 3px rgba(0,0,0,0.5);
+   text-shadow: 0 0 1px rgba(0,0,0,0.5);
+}
+.half {
+    position:relative;
+}
+.half:after {
+    content:'';
+    position:absolute;
+    z-index:1;
+    background:white;
+    width: 50%;
+    height: 100%;
+    left: 47%;
+}
+.star-color {
+  color: #FFCC00;
 }
