@@ -13,8 +13,14 @@ app.controller('skipController', function($scope, $window, $http, $timeout, $q){
     $scope.success = false;
 
     $scope.loadingMessage = loadingMessages[Math.floor(Math.random() * loadingMessages.length)];
-    localStorage.setItem("selectedCity",$scope.selectedCity);
-    
+    if (typeof localStorage === 'object') {
+      try {
+          localStorage.setItem("selectedCity",$scope.selectedCity);
+      } catch (e) {
+          console.log('LocalStorage is not fully supported.')
+      }
+    }
+
     var url = "http://"+serverHostname+"/restaurants/" + $scope.selectedCity ;
     $http.get(url)
       .success(function(response){
@@ -64,12 +70,21 @@ app.controller('skipController', function($scope, $window, $http, $timeout, $q){
       $http.get("http://"+serverHostname+"/cities")
       .success(function(response){
         $scope.cities = response;
-        if (localStorage.getItem("selectedCity")){
-          $scope.selectedCity = localStorage.getItem("selectedCity");
-        } else {
-          $scope.selectedCity = $scope.cities[0];
-        }
 
+
+        if (typeof localStorage === 'object') {
+          try {
+            if (localStorage.getItem("selectedCity")){
+              $scope.selectedCity = localStorage.getItem("selectedCity");
+            } else {
+              $scope.selectedCity = $scope.cities[0];
+            }
+          } catch (e) {
+              console.log('LocalStorage is not fully supported.')
+              $scope.selectedCity = $scope.cities[0];
+          }
+        }
+              
       })
       .error(function(response){
         $scope.loading=false;
