@@ -13,7 +13,8 @@ app.controller('skipController', function($scope, $window, $http, $timeout, $q){
     $scope.success = false;
 
     $scope.loadingMessage = loadingMessages[Math.floor(Math.random() * loadingMessages.length)];
-
+    localStorage.setItem("selectedCity",$scope.selectedCity);
+    
     var url = "http://"+serverHostname+"/restaurants/" + $scope.selectedCity ;
     $http.get(url)
       .success(function(response){
@@ -63,7 +64,12 @@ app.controller('skipController', function($scope, $window, $http, $timeout, $q){
       $http.get("http://"+serverHostname+"/cities")
       .success(function(response){
         $scope.cities = response;
-        $scope.selectedCity = $scope.cities[9];
+        if (localStorage.getItem("selectedCity")){
+          $scope.selectedCity = localStorage.getItem("selectedCity");
+        } else {
+          $scope.selectedCity = $scope.cities[0];
+        }
+
       })
       .error(function(response){
         $scope.loading=false;
