@@ -6,6 +6,7 @@ body {
 }
 .jumbotron {
   background-color: #dcdcdc;
+  padding-bottom: 5px;
 }
 .glyphicon-cutlery {
   top: 5px;
@@ -29,6 +30,7 @@ p.panel-msg {
 }
 .btn.btn-danger.btn-lg {
   width: 100%;
+  margin-bottom: 20px;
 }
 .blurry {
    color: transparent;
@@ -48,4 +50,12 @@ p.panel-msg {
 }
 .star-color {
   color: #FFCC00;
+}
+.social {
+  padding-left: 2px;
+  padding-right: 2px;
+  width: 125px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }

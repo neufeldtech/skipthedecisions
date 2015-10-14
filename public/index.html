@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Skip The Decisions | The 'Skip The Dishes' randomizer app that lets you eat more and think less!</title>
+    <title>Skip The Decisions | The restaurant randomizer app that lets you eat more and think less!</title>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
     <script src="client.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -10,10 +10,23 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="main.css">
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" /> 
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="Description" CONTENT="Skip The Decisions is a restaurant randomizer app that takes the headache out of choosing a place to eat!">
+  <!-- Start insert of Google Analytics chunk -->
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68824019-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!--End Google Analytics -->
+
   </head>
 
   <body ng-app="skipApp" ng-controller="skipController" >
@@ -59,8 +72,12 @@
       </select>
     </div>
     <button ng-disabled="loading" ng-click="eat()" type="button" class="btn btn-danger btn-lg">Let's Eat!</button>
+      <div class="social">
+        <a href="https://twitter.com/jordanband" class="twitter-follow-button" data-show-count="false" data-show-screen-name="false">Follow @jordanband</a>
+        <iframe src="https://ghbtns.com/github-btn.html?user=neufeldtech&repo=skipthedecisions&type=star&count=false&size=small" frameborder="0" scrolling="0" width="50px" height="20px"></iframe>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+      </div>
     </div>
     </div>
-  </div>
   </body>
 </html>
