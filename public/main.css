@@ -59,3 +59,38 @@ p.panel-msg {
   margin-left: auto;
   margin-right: auto;
 }
+.title {
+  padding-left: 10px;
+}
+ hr {
+  border-top-color: #d5d5d5;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+@media only screen
+  and (max-device-width: 568px)
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: portrait) {
+    h1 {
+      font-size: 1.7em;
+    }
+    h2 {
+      font-size: 1.5em;
+    }
+    h3.blurry, h3 {
+      font-size: 1.1em;
+    }
+    .jumbotron p {
+      font-size: 1.0em;
+    }
+    p.panel-msg {
+      font-size: 1.0em;
+    }
+    .panel {
+      min-height: 150px;
+    }
+    .jumbotron {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+}
